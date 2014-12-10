@@ -1,0 +1,59 @@
+package org.books.persistence.dto;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import org.books.persistence.entity.Order.Status;
+
+/**
+ *
+ * @author AWy
+ */
+public class OrderInfo {
+
+    private Long id;
+    private String number;
+    private Date date;
+    private BigDecimal amount;
+    private Status status;
+
+    public Long getId() {
+	return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public String getNumber() {
+	return number;
+    }
+
+    public void setNumber(String number) {
+	this.number = number;
+    }
+
+    public Date getDate() {
+	return date;
+    }
+
+    public void setDate(Date date) {
+	this.date = date;
+    }
+
+    public BigDecimal getAmount() {
+	return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+	this.amount = amount;
+    }
+
+    public Status getStatus() {
+	return status;
+    }
+
+    public void setStatus(Status status) {
+	this.status = status;
+    }
+
+}
