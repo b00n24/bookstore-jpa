@@ -16,6 +16,14 @@ public class OrderInfo {
     private BigDecimal amount;
     private Status status;
 
+    public OrderInfo(Long id, String number, Date date, BigDecimal amount, Status status) {
+	this.id = id;
+	this.number = number;
+	this.date = date;
+	this.amount = amount;
+	this.status = status;
+    }
+    
     public Long getId() {
 	return id;
     }
