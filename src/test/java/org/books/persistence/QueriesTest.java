@@ -102,6 +102,7 @@ public class QueriesTest extends AbstractTest {
 	lineItem1 = new LineItem();
 	lineItem1.setQuantity(1);
 	lineItem1.setBook(book1);
+	em.persist(lineItem1);
 
 	// Order
 	order = new Order();
@@ -110,7 +111,7 @@ public class QueriesTest extends AbstractTest {
 	order.setAmount(new BigDecimal(55));
 	order.setStatus(Status.ACCEPTED);
 	order.getItems().add(lineItem1);
-	//em.persist(order);
+	em.persist(order);
 
 	em.getTransaction().commit();
     }
@@ -128,13 +129,53 @@ public class QueriesTest extends AbstractTest {
     }
 
     @Test
-    public void queryByIsbn() {
-	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_ISBN, Book.class);
+    public void queryBookByIsbn() {
+	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_BY_ISBN, Book.class);
 	query.setParameter(Book.PARAM_ISBN, isbn1);
 
 	Book result = query.getSingleResult();
 
 	assertEquals(isbn1, result.getIsbn());
+    }
+    
+    @Test
+    public void queryCustomerByEmail() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
+	query.setParameter(Customer.PARAM_EMAIL, email);
+
+	Customer result = query.getSingleResult();
+
+	assertEquals(email, result.getEmail());
+    }
+    
+    @Test
+    public void queryCustomerByFirstName() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
+	query.setParameter(Customer.PARAM_NAME, firstName);
+
+	Customer result = query.getSingleResult();
+
+	assertEquals(customer.getId(), result.getId());
+    }
+    
+    @Test
+    public void queryCustomerByLastName() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
+	query.setParameter(Customer.PARAM_NAME, lastName);
+
+	Customer result = query.getSingleResult();
+
+	assertEquals(customer.getId(), result.getId());
+    }
+    
+    @Test
+    public void queryOrderByNumber() {
+	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
+	query.setParameter(Order.PARAM_NUMBER, orderNumber);
+
+	Order result = query.getSingleResult();
+
+	assertEquals(orderNumber, result.getNumber());
     }
 
 }

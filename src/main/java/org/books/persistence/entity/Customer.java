@@ -5,12 +5,23 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = Customer.QUERY_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = :" + Customer.PARAM_EMAIL),
+    @NamedQuery(name = Customer.QUERY_BY_NAME, query = "SELECT c FROM Customer c WHERE c.firstName = :" + Customer.PARAM_NAME
+	    + " OR c.lastName = :" + Customer.PARAM_NAME)
+})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String QUERY_BY_EMAIL = "Customer.email";
+    public static final String PARAM_EMAIL = "email";
+    public static final String QUERY_BY_NAME = "Customer.byname";
+    public static final String PARAM_NAME = "name";
 
     @Id
     @GeneratedValue

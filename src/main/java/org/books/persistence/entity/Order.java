@@ -10,10 +10,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -21,9 +23,11 @@ import org.books.persistence.enums.Status;
 
 // order is a reserved word in SQL
 @Entity(name = "BookOrder")
+@NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE o.number = :" + Order.PARAM_NUMBER)
 public class Order implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    public static final String QUERY_BY_NUMBER = "Order.number";
+    public static final String PARAM_NUMBER = "number";
 
     @Id
     @GeneratedValue
@@ -50,8 +54,8 @@ public class Order implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
     private CreditCard creditCard;
 
-    @OneToMany()
-    @JoinColumn(referencedColumnName = "ORDER_ID")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bookorder_id")
     private List<LineItem> items;
 
     public Order() {

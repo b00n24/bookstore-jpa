@@ -11,13 +11,12 @@ import javax.persistence.NamedQuery;
 import org.books.persistence.enums.Binding;
 
 @Entity
-@NamedQuery(name = Book.QUERY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :" + Book.PARAM_ISBN)
+@NamedQuery(name = Book.QUERY_BY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :" + Book.PARAM_ISBN)
 public class Book implements Serializable {
 
-    public static final String QUERY_ISBN = "Book.isbn";
-    public static final String PARAM_ISBN = "isbn";
-
     private static final long serialVersionUID = 1L;
+    public static final String QUERY_BY_ISBN = "Book.isbn";
+    public static final String PARAM_ISBN = "isbn";
 
     @Id
     @GeneratedValue
