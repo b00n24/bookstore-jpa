@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,11 +24,19 @@ import org.books.persistence.enums.Status;
 
 // order is a reserved word in SQL
 @Entity(name = "BookOrder")
-@NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE o.number = :" + Order.PARAM_NUMBER)
+@NamedQueries({
+    @NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE o.number = :" + Order.PARAM_NUMBER)
+//    @NamedQuery(name = Order.QUERY_ORDERS_BY_CUSTOMER_AND_YEAR, query = "SELECT o FROM BookOrder o WHERE o.customer.id = : " + Order.PARAM_CUSTOMER_ID
+//	    + " AND SUBSTRING(o.date, 1, 4) = :" + Order.PARAM_YEAR)
+})
 public class Order implements Serializable {
+
     private static final long serialVersionUID = 1L;
     public static final String QUERY_BY_NUMBER = "Order.number";
     public static final String PARAM_NUMBER = "number";
+    public static final String QUERY_ORDERS_BY_CUSTOMER_AND_YEAR = "Order.ordersByCustomerAndYear";
+    public static final String PARAM_CUSTOMER_ID = "customerId";
+    public static final String PARAM_YEAR = "year";
 
     @Id
     @GeneratedValue

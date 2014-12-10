@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.books.persistence.dto.queries.QueryUtil;
 import org.books.persistence.entity.Address;
 import org.books.persistence.entity.Book;
 import org.books.persistence.entity.CreditCard;
@@ -16,6 +19,8 @@ import org.books.persistence.enums.Status;
 import org.books.persistence.enums.Type;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +40,7 @@ public class QueriesTest extends AbstractTest {
     private final String isbn2 = "isbn2";
     private final String title2 = "title2";
     private final double price2 = 44.23;
-    private final String orderNumber = "23432";
+    private final String orderNumber = "23abb432";
     private final Date orderDate = Calendar.getInstance().getTime();
 
     private Customer customer;
@@ -124,6 +129,12 @@ public class QueriesTest extends AbstractTest {
 	em.remove(o1);
 	Customer c1 = em.merge(customer);
 	em.remove(c1);
+	LineItem i1 = em.merge(lineItem1);
+	em.remove(i1);
+	Book b1 = em.merge(book1);
+	em.remove(b1);
+	Book b2 = em.merge(book2);
+	em.remove(b2);
 
 	em.getTransaction().commit();
     }
@@ -137,7 +148,7 @@ public class QueriesTest extends AbstractTest {
 
 	assertEquals(isbn1, result.getIsbn());
     }
-    
+
     @Test
     public void queryCustomerByEmail() {
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
@@ -147,7 +158,15 @@ public class QueriesTest extends AbstractTest {
 
 	assertEquals(email, result.getEmail());
     }
-    
+
+    @Test(expected = NoResultException.class)
+    public void queryCustomerByEmailCaseSensitiv_shouldNotFind() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
+	query.setParameter(Customer.PARAM_EMAIL, email.toUpperCase());
+
+	query.getSingleResult();
+    }
+
     @Test
     public void queryCustomerByFirstName() {
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
@@ -157,7 +176,15 @@ public class QueriesTest extends AbstractTest {
 
 	assertEquals(customer.getId(), result.getId());
     }
-    
+
+    @Test(expected = NoResultException.class)
+    public void queryCustomerByFirstNameCaseSensitiv_shouldNotFind() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
+	query.setParameter(Customer.PARAM_NAME, firstName.toUpperCase());
+
+	query.getSingleResult();
+    }
+
     @Test
     public void queryCustomerByLastName() {
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
@@ -167,7 +194,15 @@ public class QueriesTest extends AbstractTest {
 
 	assertEquals(customer.getId(), result.getId());
     }
-    
+
+    @Test(expected = NoResultException.class)
+    public void queryCustomerByLastNameCaseSensitiv_shouldNotFind() {
+	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_NAME, Customer.class);
+	query.setParameter(Customer.PARAM_NAME, lastName.toUpperCase());
+
+	query.getSingleResult();
+    }
+
     @Test
     public void queryOrderByNumber() {
 	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
@@ -176,6 +211,42 @@ public class QueriesTest extends AbstractTest {
 	Order result = query.getSingleResult();
 
 	assertEquals(orderNumber, result.getNumber());
+    }
+
+    @Test(expected = NoResultException.class)
+    public void queryOrderByNumberCaseSensitiv_shouldNotFind() {
+	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
+	query.setParameter(Order.PARAM_NUMBER, orderNumber.toUpperCase());
+
+	query.getSingleResult();
+    }
+
+    @Test
+    public void queryOrderByCustomerAndYear() {
+	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_ORDERS_BY_CUSTOMER_AND_YEAR, Order.class);
+	query.setParameter(Order.PARAM_CUSTOMER_ID, customer);
+	query.setParameter(Order.PARAM_YEAR, 2014);
+
+	Order result = query.getSingleResult();
+
+	assertEquals(orderNumber, result.getNumber());
+    }
+
+    @Test
+    public void queryOrderByCustomerAndYearUtil() {
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(orderDate);
+	int year = cal.get(Calendar.YEAR);
+	final List<Order> result = QueryUtil.getOrders(customer, year);
+
+	assertFalse(result.isEmpty());
+    }
+
+    @Test
+    public void queryOrderByCustomerAndYearUtil_wrongYear() {
+	final List<Order> result = QueryUtil.getOrders(customer, 1999);
+
+	assertTrue(result.isEmpty());
     }
 
 }
