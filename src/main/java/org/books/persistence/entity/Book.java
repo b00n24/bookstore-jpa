@@ -6,9 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = Book.QUERY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :" + Book.PARAM_ISBN)
 public class Book implements Serializable {
+
+    public static final String QUERY_ISBN = "Book.isbn";
+    public static final String PARAM_ISBN = "isbn";
 
     private static final long serialVersionUID = 1L;
 
@@ -21,20 +26,20 @@ public class Book implements Serializable {
     private Long id;
 
     private String isbn;
-    
+
     private String title;
-    
+
     private String authors;
-    
+
     private String publisher;
-    
+
     private Integer publicationYear;
-    
+
     @Enumerated(EnumType.STRING)
     private Binding binding;
-    
+
     private Integer numberOfPages;
-    
+
     private BigDecimal price;
 
     public Book() {
@@ -128,5 +133,5 @@ public class Book implements Serializable {
     public String toString() {
 	return "Book{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", authors=" + authors + ", publisher=" + publisher + ", publicationYear=" + publicationYear + ", binding=" + binding + ", numberOfPages=" + numberOfPages + ", price=" + price + '}';
     }
-    
+
 }

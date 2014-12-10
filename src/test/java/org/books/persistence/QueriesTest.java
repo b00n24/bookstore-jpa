@@ -3,6 +3,7 @@ package org.books.persistence;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.TypedQuery;
 import org.books.persistence.entity.Address;
 import org.books.persistence.entity.Book;
 import org.books.persistence.entity.CreditCard;
@@ -10,7 +11,9 @@ import org.books.persistence.entity.Customer;
 import org.books.persistence.entity.LineItem;
 import org.books.persistence.entity.Order;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -38,9 +41,6 @@ public class QueriesTest extends AbstractTest {
     private Book book2;
     private Order order;
     private LineItem lineItem1;
-
-    public QueriesTest() {
-    }
 
     @Before
     public void setup() {
@@ -121,6 +121,21 @@ public class QueriesTest extends AbstractTest {
 	em.remove(c1);
 
 	em.getTransaction().commit();
+    }
+    
+    @Test
+    public void t() {
+	
+    }
+    
+    @Test
+    public void queryByIsbn() {
+	TypedQuery<Book>  query = em.createNamedQuery(Book.QUERY_ISBN, Book.class);
+	query.setParameter(Book.PARAM_ISBN, isbn1);
+	
+	Book result = query.getSingleResult();
+	
+	assertEquals(isbn1, result.getIsbn());
     }
 
 }
