@@ -1,51 +1,76 @@
 package org.books.persistence.entity;
 
-public class Address {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	private String street;
-	private String city;
-	private String postalCode;
-	private String country;
+@Entity
+public class Address implements Serializable {
 
-	public Address() {
-	}
+    private static final long serialVersionUID = 1L;
 
-	public Address(String street, String city, String postalCode, String country) {
-		this.street = street;
-		this.city = city;
-		this.postalCode = postalCode;
-		this.country = country;
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public String getStreet() {
-		return street;
-	}
+    private String street;
+    private String city;
+    private String postalCode;
+    private String country;
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    public Address() {
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Address(String street, String city, String postalCode, String country) {
+	this.street = street;
+	this.city = city;
+	this.postalCode = postalCode;
+	this.country = country;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public Long getId() {
+	return id;
+    }
 
-	public String getPostalCode() {
-		return postalCode;
-	}
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+    public String getStreet() {
+	return street;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setStreet(String street) {
+	this.street = street;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCity() {
+	return city;
+    }
+
+    public void setCity(String city) {
+	this.city = city;
+    }
+
+    public String getPostalCode() {
+	return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+	this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+	return country;
+    }
+
+    public void setCountry(String country) {
+	this.country = country;
+    }
+
+    @Override
+    public String toString() {
+	return "Address{" + "id=" + id + ", street=" + street + ", city=" + city + ", postalCode=" + postalCode + ", country=" + country + '}';
+    }
 }
