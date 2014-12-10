@@ -106,7 +106,7 @@ public class QueriesTest extends AbstractTest {
 	order.setAmount(new BigDecimal(55));
 	order.setStatus(Order.Status.accepted);
 	order.getItems().add(lineItem1);
-	em.persist(order);
+	//em.persist(order);
 
 	em.getTransaction().commit();
     }
@@ -121,11 +121,6 @@ public class QueriesTest extends AbstractTest {
 	em.remove(c1);
 
 	em.getTransaction().commit();
-    }
-    
-    @Test
-    public void t() {
-	
     }
     
     @Test

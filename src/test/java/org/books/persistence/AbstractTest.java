@@ -20,7 +20,7 @@ public abstract class AbstractTest {
 
     @BeforeClass
     public static void setUpClass() {
-	emf = Persistence.createEntityManagerFactory("hr");
+	emf = Persistence.createEntityManagerFactory("bookstore");
 	em = emf.createEntityManager();
 
 //	em.getTransaction().begin();
@@ -39,7 +39,7 @@ public abstract class AbstractTest {
 //	em.createNativeQuery("delete from DEPARTMENT").executeUpdate();
 //	em.createNativeQuery("delete from ADDRESS").executeUpdate();
 ////	em.createNativeQuery("delete from SEQUENCE").executeUpdate();
-	em.getTransaction().commit();
+//	em.getTransaction().commit();
     }
 
     @AfterClass
