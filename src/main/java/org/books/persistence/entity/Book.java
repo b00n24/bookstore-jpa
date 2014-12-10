@@ -1,108 +1,132 @@
 package org.books.persistence.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
-public class Book {
+@Entity
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    public enum Binding {
+
+	Hardcover, Paperback
+    }
+
+    @Id
     private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    private String isbn;
+    
+    private String title;
+    
+    private String authors;
+    
+    private String publisher;
+    
+    private Integer publicationYear;
+    
+    @Enumerated(EnumType.STRING)
+    private Binding binding;
+    
+    private Integer numberOfPages;
+    
+    private BigDecimal price;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Book() {
+    }
 
-	public enum Binding {
+    public Book(String isbn, String title, String authors, String publisher,
+	    Integer publicationYear, Binding binding, Integer numberOfPages, BigDecimal price) {
+	this.isbn = isbn;
+	this.title = title;
+	this.authors = authors;
+	this.publisher = publisher;
+	this.publicationYear = publicationYear;
+	this.binding = binding;
+	this.numberOfPages = numberOfPages;
+	this.price = price;
+    }
 
-		Hardcover, Paperback
-	}
+    public Long getId() {
+	return id;
+    }
 
-	private String isbn;
-	private String title;
-	private String authors;
-	private String publisher;
-	private Integer publicationYear;
-	private Binding binding;
-	private Integer numberOfPages;
-	private BigDecimal price;
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-	public Book() {
-	}
+    public String getIsbn() {
+	return isbn;
+    }
 
-	public Book(String isbn, String title, String authors, String publisher,
-			Integer publicationYear, Binding binding, Integer numberOfPages, BigDecimal price) {
-		this.isbn = isbn;
-		this.title = title;
-		this.authors = authors;
-		this.publisher = publisher;
-		this.publicationYear = publicationYear;
-		this.binding = binding;
-		this.numberOfPages = numberOfPages;
-		this.price = price;
-	}
+    public void setIsbn(String isbn) {
+	this.isbn = isbn;
+    }
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public String getTitle() {
+	return title;
+    }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public void setTitle(String title) {
+	this.title = title;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getAuthors() {
+	return authors;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setAuthors(String authors) {
+	this.authors = authors;
+    }
 
-	public String getAuthors() {
-		return authors;
-	}
+    public String getPublisher() {
+	return publisher;
+    }
 
-	public void setAuthors(String authors) {
-		this.authors = authors;
-	}
+    public void setPublisher(String publisher) {
+	this.publisher = publisher;
+    }
 
-	public String getPublisher() {
-		return publisher;
-	}
+    public Integer getPublicationYear() {
+	return publicationYear;
+    }
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+    public void setPublicationYear(Integer publicationYear) {
+	this.publicationYear = publicationYear;
+    }
 
-	public Integer getPublicationYear() {
-		return publicationYear;
-	}
+    public Binding getBinding() {
+	return binding;
+    }
 
-	public void setPublicationYear(Integer publicationYear) {
-		this.publicationYear = publicationYear;
-	}
+    public void setBinding(Binding binding) {
+	this.binding = binding;
+    }
 
-	public Binding getBinding() {
-		return binding;
-	}
+    public Integer getNumberOfPages() {
+	return numberOfPages;
+    }
 
-	public void setBinding(Binding binding) {
-		this.binding = binding;
-	}
+    public void setNumberOfPages(Integer numberOfPages) {
+	this.numberOfPages = numberOfPages;
+    }
 
-	public Integer getNumberOfPages() {
-		return numberOfPages;
-	}
+    public BigDecimal getPrice() {
+	return price;
+    }
 
-	public void setNumberOfPages(Integer numberOfPages) {
-		this.numberOfPages = numberOfPages;
-	}
+    public void setPrice(BigDecimal price) {
+	this.price = price;
+    }
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    @Override
+    public String toString() {
+	return "Book{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", authors=" + authors + ", publisher=" + publisher + ", publicationYear=" + publicationYear + ", binding=" + binding + ", numberOfPages=" + numberOfPages + ", price=" + price + '}';
+    }
+    
 }

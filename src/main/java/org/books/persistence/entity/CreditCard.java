@@ -1,55 +1,88 @@
 package org.books.persistence.entity;
 
-public class CreditCard {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	public enum Type {
+@Entity
+public class CreditCard implements Serializable {
 
-		MasterCard, Visa
-	}
-	private Type type;
-	private String number;
-	private Integer expirationMonth;
-	private Integer expirationYear;
+    private static final long serialVersionUID = 1L;
 
-	public CreditCard() {
-	}
+    public enum Type {
 
-	public CreditCard(Type type, String number, Integer expirationMonth, Integer expirationYear) {
-		this.type = type;
-		this.number = number;
-		this.expirationMonth = expirationMonth;
-		this.expirationYear = expirationYear;
-	}
+	MasterCard, Visa
+    }
 
-	public Type getType() {
-		return type;
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public void setType(Type type) {
-		this.type = type;
-	}
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
-	public String getNumber() {
-		return number;
-	}
+    private String number;
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    private Integer expirationMonth;
 
-	public Integer getExpirationMonth() {
-		return expirationMonth;
-	}
+    private Integer expirationYear;
 
-	public void setExpirationMonth(Integer expirationMonth) {
-		this.expirationMonth = expirationMonth;
-	}
+    public CreditCard() {
+    }
 
-	public Integer getExpirationYear() {
-		return expirationYear;
-	}
+    public CreditCard(Type type, String number, Integer expirationMonth, Integer expirationYear) {
+	this.type = type;
+	this.number = number;
+	this.expirationMonth = expirationMonth;
+	this.expirationYear = expirationYear;
+    }
+    
+    public Long getId() {
+	return id;
+    }
 
-	public void setExpirationYear(Integer expirationYear) {
-		this.expirationYear = expirationYear;
-	}
+    public void setId(Long id) {
+	this.id = id;
+    }
+    
+    public Type getType() {
+	return type;
+    }
+
+    public void setType(Type type) {
+	this.type = type;
+    }
+
+    public String getNumber() {
+	return number;
+    }
+
+    public void setNumber(String number) {
+	this.number = number;
+    }
+
+    public Integer getExpirationMonth() {
+	return expirationMonth;
+    }
+
+    public void setExpirationMonth(Integer expirationMonth) {
+	this.expirationMonth = expirationMonth;
+    }
+
+    public Integer getExpirationYear() {
+	return expirationYear;
+    }
+
+    public void setExpirationYear(Integer expirationYear) {
+	this.expirationYear = expirationYear;
+    }
+
+    @Override
+    public String toString() {
+	return "CreditCard{" + "id=" + id + ", type=" + type + ", number=" + number + ", expirationMonth=" + expirationMonth + ", expirationYear=" + expirationYear + '}';
+    }
+    
 }

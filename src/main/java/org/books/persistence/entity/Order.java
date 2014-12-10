@@ -1,115 +1,162 @@
 package org.books.persistence.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
-public class Order {
+// order is a reserved word in SQL
+@Entity(name = "BookOrder")
+public class Order implements Serializable {
 
-	public enum Status {
+    private static final long serialVersionUID = 1L;
 
-		accepted, processing, delivered, canceled;
-		
+    public enum Status {
+
+	accepted, processing, delivered, canceled;
+
     }
 
-	private String number;
-	private Date date;
-	private BigDecimal amount;
-	private Status status;
-	private Customer customer;
-	private Address address;
-	private CreditCard creditCard;
-	private List<LineItem> items;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public Order() {
-	}
+    private String number;
 
-	public Order(String number, Date date, BigDecimal amount, Status status,
-			Customer customer, Address address, CreditCard creditCard, List<LineItem> items) {
-		this.number = number;
-		this.date = date;
-		this.amount = amount;
-		this.status = status;
-		this.customer = customer;
-		this.address = address;
-		this.creditCard = creditCard;
-		this.items = items;
-	}
+    // date is a reserved word in SQL
+    @Column(name = "orderDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date;
 
-	public String getNumber() {
-		return number;
-	}
+    private BigDecimal amount;
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    private Status status;
 
-	public Date getDate() {
-		return date;
-	}
+    @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
+    private Customer customer;
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    private Address address;
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    private CreditCard creditCard;
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    @OneToMany()
+    @JoinColumn(referencedColumnName = "ORDER_ID")
+    private List<LineItem> items;
 
-	public Status getStatus() {
-		return status;
-	}
+    public Order() {
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public Order(String number, Date date, BigDecimal amount, Status status,
+	    Customer customer, Address address, CreditCard creditCard, List<LineItem> items) {
+	this.number = number;
+	this.date = date;
+	this.amount = amount;
+	this.status = status;
+	this.customer = customer;
+	this.address = address;
+	this.creditCard = creditCard;
+	this.items = items;
+    }
 
-	public Customer getCustomer() {
-		if (customer == null) {
-			customer = new Customer();
-		}
-		return customer;
-	}
+    public Long getId() {
+	return id;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-	public Address getAddress() {
-		if (address == null) {
-			address = new Address();
-		}
-		return address;
-	}
+    public String getNumber() {
+	return number;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public void setNumber(String number) {
+	this.number = number;
+    }
 
-	public CreditCard getCreditCard() {
-		if (creditCard == null) {
-			creditCard = new CreditCard();
-		}
-		return creditCard;
-	}
+    public Date getDate() {
+	return date;
+    }
 
-	public void setCreditCard(CreditCard card) {
-		this.creditCard = card;
-	}
+    public void setDate(Date date) {
+	this.date = date;
+    }
 
-	public List<LineItem> getItems() {
-		if (items == null) {
-			items = new ArrayList<>();
-		}
-		return items;
-	}
+    public BigDecimal getAmount() {
+	return amount;
+    }
 
-	public void setItems(List<LineItem> items) {
-		this.items = items;
+    public void setAmount(BigDecimal amount) {
+	this.amount = amount;
+    }
+
+    public Status getStatus() {
+	return status;
+    }
+
+    public void setStatus(Status status) {
+	this.status = status;
+    }
+
+    public Customer getCustomer() {
+	if (customer == null) {
+	    customer = new Customer();
 	}
+	return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+	this.customer = customer;
+    }
+
+    public Address getAddress() {
+	if (address == null) {
+	    address = new Address();
+	}
+	return address;
+    }
+
+    public void setAddress(Address address) {
+	this.address = address;
+    }
+
+    public CreditCard getCreditCard() {
+	if (creditCard == null) {
+	    creditCard = new CreditCard();
+	}
+	return creditCard;
+    }
+
+    public void setCreditCard(CreditCard card) {
+	this.creditCard = card;
+    }
+
+    public List<LineItem> getItems() {
+	if (items == null) {
+	    items = new ArrayList<>();
+	}
+	return items;
+    }
+
+    public void setItems(List<LineItem> items) {
+	this.items = items;
+    }
+
+    @Override
+    public String toString() {
+	return "Order{" + "id=" + id + ", number=" + number + ", date=" + date + ", amount=" + amount + ", status=" + status + ", customer=" + customer + ", address=" + address + ", creditCard=" + creditCard + ", items=" + items + '}';
+    }
 }
