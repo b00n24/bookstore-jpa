@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,18 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import org.books.persistence.enums.Status;
 
 // order is a reserved word in SQL
 @Entity(name = "BookOrder")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public enum Status {
-
-	accepted, processing, delivered, canceled;
-
-    }
 
     @Id
     @GeneratedValue
@@ -41,6 +38,7 @@ public class Order implements Serializable {
 
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)

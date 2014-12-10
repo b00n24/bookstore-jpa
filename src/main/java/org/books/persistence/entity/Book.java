@@ -5,8 +5,10 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import org.books.persistence.enums.Binding;
 
 @Entity
 @NamedQuery(name = Book.QUERY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :" + Book.PARAM_ISBN)
@@ -17,12 +19,8 @@ public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public enum Binding {
-
-	Hardcover, Paperback
-    }
-
     @Id
+    @GeneratedValue
     private Long id;
 
     private String isbn;

@@ -24,21 +24,14 @@ public abstract class AbstractTest {
 	em = emf.createEntityManager();
 
 //	em.getTransaction().begin();
-//	em.createNativeQuery("delete from SOFTWAREPROJECT").executeUpdate();
-//	em.createNativeQuery("delete from QUALITYPROJECT").executeUpdate();
-//	em.createNativeQuery("delete from PROJECTCOLLABORATION").executeUpdate();
-//	em.createNativeQuery("delete from DESIGNPROJECT").executeUpdate();
-//	em.createNativeQuery("delete from HARDWAREPROJECT_HARDWARECOMPONENT").executeUpdate();
-//	em.createNativeQuery("delete from HARDWARECOMPONENT").executeUpdate();
-//	em.createNativeQuery("delete from HARDWAREPROJECT").executeUpdate();
-//	em.createNativeQuery("delete from PROJECT").executeUpdate();
-//	em.createNativeQuery("delete from PRODUCT").executeUpdate();
-//	em.createNativeQuery("delete from PLATFORM").executeUpdate();
-//	em.createNativeQuery("delete from EMPLOYEE").executeUpdate();
-//	em.createNativeQuery("delete from PHONE").executeUpdate();
-//	em.createNativeQuery("delete from DEPARTMENT").executeUpdate();
+//	em.createNativeQuery("delete from LINEITEM").executeUpdate();
+//	em.createNativeQuery("delete from BOOKORDER").executeUpdate();
+//	em.createNativeQuery("delete from BOOK").executeUpdate();
+//	em.createNativeQuery("delete from CUSTOMER").executeUpdate();
+//	em.createNativeQuery("delete from CREDITCARD").executeUpdate();
 //	em.createNativeQuery("delete from ADDRESS").executeUpdate();
-////	em.createNativeQuery("delete from SEQUENCE").executeUpdate();
+//	em.createNativeQuery("delete from LOGIN").executeUpdate();
+//	em.createNativeQuery("delete from SEQUENCE").executeUpdate();
 //	em.getTransaction().commit();
     }
 

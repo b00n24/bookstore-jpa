@@ -6,16 +6,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import org.books.persistence.enums.Type;
 
 @Entity
 public class CreditCard implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public enum Type {
-
-	MasterCard, Visa
-    }
 
     @Id
     @GeneratedValue
