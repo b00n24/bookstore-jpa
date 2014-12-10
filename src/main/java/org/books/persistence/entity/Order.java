@@ -26,17 +26,12 @@ import org.books.persistence.enums.Status;
 @Entity(name = "BookOrder")
 @NamedQueries({
     @NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE o.number = :" + Order.PARAM_NUMBER)
-//    @NamedQuery(name = Order.QUERY_ORDERS_BY_CUSTOMER_AND_YEAR, query = "SELECT o FROM BookOrder o WHERE o.customer.id = : " + Order.PARAM_CUSTOMER_ID
-//	    + " AND SUBSTRING(o.date, 1, 4) = :" + Order.PARAM_YEAR)
 })
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String QUERY_BY_NUMBER = "Order.number";
     public static final String PARAM_NUMBER = "number";
-    public static final String QUERY_ORDERS_BY_CUSTOMER_AND_YEAR = "Order.ordersByCustomerAndYear";
-    public static final String PARAM_CUSTOMER_ID = "customerId";
-    public static final String PARAM_YEAR = "year";
 
     @Id
     @GeneratedValue

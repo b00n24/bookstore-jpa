@@ -222,17 +222,6 @@ public class QueriesTest extends AbstractTest {
     }
 
     @Test
-    public void queryOrderByCustomerAndYear() {
-	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_ORDERS_BY_CUSTOMER_AND_YEAR, Order.class);
-	query.setParameter(Order.PARAM_CUSTOMER_ID, customer);
-	query.setParameter(Order.PARAM_YEAR, 2014);
-
-	Order result = query.getSingleResult();
-
-	assertEquals(orderNumber, result.getNumber());
-    }
-
-    @Test
     public void queryOrderByCustomerAndYearUtil() {
 	Calendar cal = Calendar.getInstance();
 	cal.setTime(orderDate);
