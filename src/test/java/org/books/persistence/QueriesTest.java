@@ -143,6 +143,7 @@ public class QueriesTest extends AbstractTest {
 	order.setAmount(new BigDecimal(55));
 	order.setStatus(Status.ACCEPTED);
 	order.getItems().add(lineItem1);
+	order.setCustomer(customer);
 	em.persist(order);
 
 	em.getTransaction().commit();

@@ -7,14 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.entity.Customer;
-import org.books.persistence.entity.Order;
-import org.books.persistence.entity.Order_;
 
 /**
  *
@@ -26,9 +20,21 @@ public class QueryUtil {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("bookstore");
 	EntityManager em = emf.createEntityManager();
 	Calendar cal = Calendar.getInstance();
+
+	// First of year
+	cal.set(Calendar.HOUR_OF_DAY, 0);
+	cal.set(Calendar.MINUTE, 0);
+	cal.set(Calendar.SECOND, 0);
+	cal.set(Calendar.MILLISECOND, 0);
 	cal.set(Calendar.DAY_OF_YEAR, 1);
 	cal.set(Calendar.YEAR, year);
 	Date firstOfYear = cal.getTime();
+
+	// Last of year
+	cal.set(Calendar.HOUR_OF_DAY, 23);
+	cal.set(Calendar.MINUTE, 59);
+	cal.set(Calendar.SECOND, 59);
+	cal.set(Calendar.MILLISECOND, 999);
 	cal.set(Calendar.MONTH, 11); // 11 = december
 	cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
 	Date lastOfYear = cal.getTime();
@@ -45,9 +51,9 @@ public class QueryUtil {
 //		    cb.lessThanOrEqualTo(root.<Date>get(Order_.date), lastOfYear))
 //		));
 //	List<Order> result = em.createQuery(query).getResultList();
-	TypedQuery<OrderInfo> query = em.createQuery("SELECT NEW org.books.persistence.dto.OrderInfo(o.id, o.number, o.date, o.amount, o.status)" +
-		" FROM BookOrder o JOIN o.customer c where o.customer.id = :customerId and" +
-		" o.date BETWEEN :firstOfYear and :lastOfYear", OrderInfo.class);
+	TypedQuery<OrderInfo> query = em.createQuery("SELECT NEW org.books.persistence.dto.OrderInfo(o.id, o.number, o.date, o.amount, o.status)"
+		+ " FROM BookOrder o JOIN o.customer c where o.customer.id = :customerId and"
+		+ " o.date BETWEEN :firstOfYear and :lastOfYear", OrderInfo.class);
 	query.setParameter("customerId", customer.getId());
 	query.setParameter("firstOfYear", firstOfYear);
 	query.setParameter("lastOfYear", lastOfYear);
