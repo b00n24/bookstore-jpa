@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.dto.queries.QueryUtil;
 import org.books.persistence.entity.Address;
 import org.books.persistence.entity.Book;
@@ -44,8 +45,11 @@ public class QueriesTest extends AbstractTest {
     private final Date orderDate = Calendar.getInstance().getTime();
 
     private Customer customer;
+    private Customer customer2;
     private Address address;
+    private Address address2;
     private CreditCard creditCard;
+    private CreditCard creditCard2;
     private Book book1;
     private Book book2;
     private Order order;
@@ -63,6 +67,13 @@ public class QueriesTest extends AbstractTest {
 	address.setPostalCode("postalCode");
 	address.setCountry("country");
 
+	// Address 2
+	address2 = new Address();
+	address2.setStreet("Street2");
+	address2.setCity(cityName);
+	address2.setPostalCode("postalCode2");
+	address2.setCountry("country2");
+	
 	// CreditCard
 	creditCard = new CreditCard();
 	creditCard.setType(Type.MasterCard);
@@ -70,6 +81,13 @@ public class QueriesTest extends AbstractTest {
 	creditCard.setExpirationMonth(6);
 	creditCard.setExpirationYear(16);
 
+	// CreditCard 2
+	creditCard2 = new CreditCard();
+	creditCard2.setType(Type.Visa);
+	creditCard2.setNumber("123232332345");
+	creditCard2.setExpirationMonth(7);
+	creditCard2.setExpirationYear(21);
+	
 	// Customer
 	customer = new Customer();
 	customer.setFirstName(firstName);
@@ -78,6 +96,15 @@ public class QueriesTest extends AbstractTest {
 	customer.setAddress(address);
 	customer.setCreditCard(creditCard);
 	em.persist(customer);
+	
+	// Customer 2
+	customer2 = new Customer();
+	customer2.setFirstName(firstName + "2");
+	customer2.setLastName(lastName + "2");
+	customer2.setEmail(email + "2");
+	customer2.setAddress(address2);
+	customer2.setCreditCard(creditCard2);
+	em.persist(customer2);
 
 	// Book 1
 	book1 = new Book();
@@ -129,6 +156,8 @@ public class QueriesTest extends AbstractTest {
 	em.remove(o1);
 	Customer c1 = em.merge(customer);
 	em.remove(c1);
+	Customer c2 = em.merge(customer2);
+	em.remove(c2);
 	LineItem i1 = em.merge(lineItem1);
 	em.remove(i1);
 	Book b1 = em.merge(book1);
@@ -226,14 +255,14 @@ public class QueriesTest extends AbstractTest {
 	Calendar cal = Calendar.getInstance();
 	cal.setTime(orderDate);
 	int year = cal.get(Calendar.YEAR);
-	final List<Order> result = QueryUtil.getOrders(customer, year);
+	final List<OrderInfo> result = QueryUtil.getOrders(customer, year);
 
 	assertFalse(result.isEmpty());
     }
 
     @Test
     public void queryOrderByCustomerAndYearUtil_wrongYear() {
-	final List<Order> result = QueryUtil.getOrders(customer, 1999);
+	final List<OrderInfo> result = QueryUtil.getOrders(customer, 1999);
 
 	assertTrue(result.isEmpty());
     }

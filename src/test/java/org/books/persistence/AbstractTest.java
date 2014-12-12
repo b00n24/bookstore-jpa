@@ -23,16 +23,20 @@ public abstract class AbstractTest {
 	emf = Persistence.createEntityManagerFactory("bookstore");
 	em = emf.createEntityManager();
 
-//	em.getTransaction().begin();
-//	em.createNativeQuery("delete from LINEITEM").executeUpdate();
-//	em.createNativeQuery("delete from BOOKORDER").executeUpdate();
-//	em.createNativeQuery("delete from BOOK").executeUpdate();
-//	em.createNativeQuery("delete from CUSTOMER").executeUpdate();
-//	em.createNativeQuery("delete from CREDITCARD").executeUpdate();
-//	em.createNativeQuery("delete from ADDRESS").executeUpdate();
-//	em.createNativeQuery("delete from LOGIN").executeUpdate();
-//	em.createNativeQuery("delete from SEQUENCE").executeUpdate();
-//	em.getTransaction().commit();
+	try {
+	    em.getTransaction().begin();
+	    em.createNativeQuery("delete from LINEITEM").executeUpdate();
+	    em.createNativeQuery("delete from BOOKORDER").executeUpdate();
+	    em.createNativeQuery("delete from BOOK").executeUpdate();
+	    em.createNativeQuery("delete from CUSTOMER").executeUpdate();
+	    em.createNativeQuery("delete from CREDITCARD").executeUpdate();
+	    em.createNativeQuery("delete from ADDRESS").executeUpdate();
+	    em.createNativeQuery("delete from LOGIN").executeUpdate();
+	    //em.createNativeQuery("delete from SEQUENCE").executeUpdate();
+	    em.getTransaction().commit();
+	} catch (Exception e) {
+	    // Ignore
+	}
     }
 
     @AfterClass
