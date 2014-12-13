@@ -11,17 +11,17 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Customer.QUERY_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = :" + Customer.PARAM_EMAIL),
-    @NamedQuery(name = Customer.QUERY_BY_NAME, query = "SELECT c FROM Customer c WHERE c.firstName = :" + Customer.PARAM_NAME
-	    + " OR c.lastName = :" + Customer.PARAM_NAME)
+    @NamedQuery(name = Customer.QUERY_BY_EMAIL, query = "SELECT c FROM Customer c WHERE LOWER(c.email) = :" + Customer.PARAM_EMAIL),
+    @NamedQuery(name = Customer.QUERY_BY_NAME, query = "SELECT NEW org.books.persistence.dto.CustomerInfo(c.id, c.firstName, c.lastName, c.email)"
+		+ " FROM Customer c WHERE LOWER(c.firstName) LIKE :" + Customer.PARAM_NAME + " OR LOWER(c.lastName) LIKE :" + Customer.PARAM_NAME + " ORDER BY c.firstName")    
 })
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String QUERY_BY_EMAIL = "Customer.email";
     public static final String PARAM_EMAIL = "email";
-    public static final String QUERY_BY_NAME = "Customer.byname";
-    public static final String PARAM_NAME = "name";
+    public static final String QUERY_BY_NAME = "Customer.name";
+    public static final String PARAM_NAME = "name";    
 
     @Id
     @GeneratedValue

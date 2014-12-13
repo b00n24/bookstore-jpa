@@ -2,7 +2,6 @@ package org.books.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,7 +11,7 @@ import javax.persistence.NamedQuery;
 import org.books.persistence.enums.Binding;
 
 @Entity
-@NamedQuery(name = Book.QUERY_BY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :" + Book.PARAM_ISBN)
+@NamedQuery(name = Book.QUERY_BY_ISBN, query = "SELECT b FROM Book b WHERE LOWER(b.isbn) = :" + Book.PARAM_ISBN)
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;

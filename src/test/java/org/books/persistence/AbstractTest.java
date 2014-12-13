@@ -15,9 +15,6 @@ public abstract class AbstractTest {
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
-    public AbstractTest() {
-    }
-
     @BeforeClass
     public static void setUpClass() {
 	emf = Persistence.createEntityManagerFactory("bookstore");

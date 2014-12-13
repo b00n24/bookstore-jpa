@@ -25,14 +25,21 @@ import org.books.persistence.enums.Status;
 // order is a reserved word in SQL
 @Entity(name = "BookOrder")
 @NamedQueries({
-    @NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE o.number = :" + Order.PARAM_NUMBER)
+    @NamedQuery(name = Order.QUERY_BY_NUMBER, query = "SELECT o FROM BookOrder o WHERE LOWER(o.number) = :" + Order.PARAM_NUMBER),
+    @NamedQuery(name = Order.QUERY_BY_CUSTOMER_AND_YEAR, query = "SELECT NEW org.books.persistence.dto.OrderInfo(o.id, o.number, o.date, o.amount, o.status)"
+	    + " FROM BookOrder o JOIN o.customer c where o.customer.id = :" + Order.PARAM_CUSTOMER_ID + " and"
+	    + " o.date BETWEEN :" + Order.PARAM_FIRST_OF_YEAR + " and :" + Order.PARAM_LAST_OF_YEAR)
 })
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String QUERY_BY_NUMBER = "Order.number";
     public static final String PARAM_NUMBER = "number";
-
+    public static final String QUERY_BY_CUSTOMER_AND_YEAR = "Order.customer_and_year";
+    public static final String PARAM_CUSTOMER_ID = "customerId";
+    public static final String PARAM_FIRST_OF_YEAR = "firstOfYear";
+    public static final String PARAM_LAST_OF_YEAR = "lastOfYear";
+    
     @Id
     @GeneratedValue
     private Long id;
