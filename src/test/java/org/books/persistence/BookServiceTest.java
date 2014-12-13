@@ -6,9 +6,6 @@
 package org.books.persistence;
 
 import java.util.List;
-import javax.persistence.TypedQuery;
-import static org.books.persistence.AbstractTest.em;
-import org.books.persistence.dto.queries.QueryUtil;
 import org.books.persistence.entity.Book;
 import org.books.persistence.service.BookService;
 import org.books.persistence.service.BookServiceImpl;

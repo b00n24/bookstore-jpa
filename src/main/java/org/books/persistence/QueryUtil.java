@@ -1,4 +1,4 @@
-package org.books.persistence.dto.queries;
+package org.books.persistence;
 
 import org.apache.commons.lang3.Validate;
 

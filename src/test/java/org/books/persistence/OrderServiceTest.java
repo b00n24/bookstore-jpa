@@ -7,11 +7,7 @@ package org.books.persistence;
 
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import static org.books.persistence.AbstractTest.em;
 import org.books.persistence.dto.OrderInfo;
-import org.books.persistence.dto.queries.QueryUtil;
 import org.books.persistence.entity.Order;
 import org.books.persistence.service.OrderService;
 import org.books.persistence.service.OrderServiceImpl;

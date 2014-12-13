@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.books.persistence.service;
 
 import java.util.List;
@@ -10,8 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.Validate;
+import org.books.persistence.QueryUtil;
 import org.books.persistence.dto.CustomerInfo;
-import static org.books.persistence.dto.queries.QueryUtil.convertToLikeValueAndLowerCase;
 import org.books.persistence.entity.Customer;
 import org.books.persistence.entity.Login;
 
@@ -29,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 	Validate.notEmpty(name, "'name' darf nicht leer sein");
 
 	TypedQuery<CustomerInfo> query = em.createNamedQuery(Customer.QUERY_BY_NAME, CustomerInfo.class);
-	query.setParameter(Customer.PARAM_NAME, convertToLikeValueAndLowerCase(name));
+	query.setParameter(Customer.PARAM_NAME, QueryUtil.convertToLikeValueAndLowerCase(name));
 
 	return query.getResultList();
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.books.persistence.service;
 
 import java.util.List;
@@ -16,7 +11,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.books.persistence.dto.queries.QueryUtil;
+import org.books.persistence.QueryUtil;
 import org.books.persistence.entity.Book;
 import org.books.persistence.entity.Book_;
 
