@@ -51,6 +51,7 @@ public class Order implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
 
+    @Column(precision = 7, scale = 2)
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
