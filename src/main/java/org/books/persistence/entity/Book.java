@@ -2,6 +2,7 @@ package org.books.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,6 +38,7 @@ public class Book implements Serializable {
 
     private Integer numberOfPages;
 
+    @Column(precision = 7, scale = 2)
     private BigDecimal price;
 
     public Book() {
