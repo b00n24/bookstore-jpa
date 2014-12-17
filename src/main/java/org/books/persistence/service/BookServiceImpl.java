@@ -2,7 +2,6 @@ package org.books.persistence.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,12 +14,13 @@ import org.books.persistence.QueryUtil;
 import org.books.persistence.entity.Book;
 import org.books.persistence.entity.Book_;
 
+
 public class BookServiceImpl implements BookService {
 
     private final EntityManager em;
 
-    public BookServiceImpl(EntityManagerFactory emf) {
-	em = emf.createEntityManager();
+    public BookServiceImpl(EntityManager em) {
+	this.em = em;
     }
 
     @Override

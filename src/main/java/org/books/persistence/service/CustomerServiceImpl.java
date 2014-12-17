@@ -2,7 +2,6 @@ package org.books.persistence.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.Validate;
 import org.books.persistence.QueryUtil;
@@ -12,11 +11,10 @@ import org.books.persistence.entity.Login;
 
 public class CustomerServiceImpl implements CustomerService {
 
-
     private final EntityManager em;
 
-    public CustomerServiceImpl(EntityManagerFactory emf) {
-	em = emf.createEntityManager();
+    public CustomerServiceImpl(EntityManager em) {
+	this.em = em;
     }
 
     @Override

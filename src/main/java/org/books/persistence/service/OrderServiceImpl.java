@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.entity.Customer;
@@ -14,8 +13,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final EntityManager em;
 
-    public OrderServiceImpl(EntityManagerFactory emf) {
-	em = emf.createEntityManager();
+    public OrderServiceImpl(EntityManager em) {
+	this.em = em;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 	cal.set(Calendar.MONTH, 11); // 11 = december
 	cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
 	Date lastOfYear = cal.getTime();
-	
+
 	TypedQuery<OrderInfo> query = em.createNamedQuery(Order.QUERY_BY_CUSTOMER_AND_YEAR, OrderInfo.class);
 	query.setParameter(Order.PARAM_CUSTOMER_ID, customer.getId());
 	query.setParameter(Order.PARAM_FIRST_OF_YEAR, firstOfYear);
