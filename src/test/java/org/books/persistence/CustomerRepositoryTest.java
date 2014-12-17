@@ -23,13 +23,13 @@ public class CustomerRepositoryTest extends QueriesWithDataTest {
 
     @Test
     public void queryCustomerByEmail() {
-	Customer result = service.getCustomerByMail(email);
+	Customer result = service.findByMail(email);
 
 	assertEquals(email, result.getEmail());
     }
 
     public void queryCustomerByEmailCaseInsensitiv() {
-	Customer result = service.getCustomerByMail(email.toUpperCase());
+	Customer result = service.findByMail(email.toUpperCase());
 
 	assertEquals(email, result.getEmail());
     }
@@ -88,7 +88,7 @@ public class CustomerRepositoryTest extends QueriesWithDataTest {
     
     @Test
     public void queryLoginByName() {
-	Login result = service.getLoginByUserName(email);
+	Login result = service.findLoginByUserName(email);
 
 	assertEquals(email, result.getUserName());
     }    

@@ -26,7 +26,7 @@ public class CustomerRepository {
 	return query.getResultList();
     }
 
-    public Customer getCustomerByMail(String email) {
+    public Customer findByMail(String email) {
 	Validate.notEmpty(email, "'email' darf nicht leer sein");
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
 	query.setParameter(Customer.PARAM_EMAIL, email.toLowerCase());
@@ -34,7 +34,7 @@ public class CustomerRepository {
 	return query.getSingleResult();
     }
 
-    public Login getLoginByUserName(String userName) {
+    public Login findLoginByUserName(String userName) {
 	Validate.notEmpty(userName, "'userName' darf nicht leer sein");
 	TypedQuery<Login> query = em.createNamedQuery(Login.QUERY_BY_NAME, Login.class);
 	query.setParameter(Login.PARAM_NAME, userName.toLowerCase());
@@ -42,4 +42,28 @@ public class CustomerRepository {
 	return query.getSingleResult();
     }
 
+    public void update(Login login) {
+	em.merge(login);
+    }
+
+    public void update(Customer customer) {
+	em.merge(customer);
+    }
+
+    public Customer findCustomer(Long customerId) {
+	return em.find(Customer.class, customerId);
+    }
+
+    public void persist(Login login) {
+	em.persist(login);
+    }
+
+    public void persist(Customer customer) {
+	em.persist(customer);
+    }
+
+    // TODO SIR flush hier implementieren?! ist bei register wohl nötig um id zurückgeben zu können....
+    public void flush() {
+	em.flush();
+    }
 }
