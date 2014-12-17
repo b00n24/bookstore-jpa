@@ -7,8 +7,7 @@ package org.books.persistence;
 
 import java.util.List;
 import org.books.persistence.entity.Book;
-import org.books.persistence.service.BookService;
-import org.books.persistence.service.BookServiceImpl;
+import org.books.persistence.service.BookRepository;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -16,9 +15,9 @@ import org.junit.Test;
  *
  * @author Silvan
  */
-public class BookServiceTest extends QueriesWithDataTest {
+public class BookRepositoryTest extends QueriesWithDataTest {
 
-    BookService service = new BookServiceImpl(emf);
+    BookRepository service = new BookRepository(emf.createEntityManager());
 
     @Test
     public void queryBookByIsbn() {

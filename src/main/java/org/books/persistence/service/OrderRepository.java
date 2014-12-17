@@ -9,15 +9,14 @@ import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.entity.Customer;
 import org.books.persistence.entity.Order;
 
-public class OrderServiceImpl implements OrderService {
+public class OrderRepository {
 
     private final EntityManager em;
 
-    public OrderServiceImpl(EntityManager em) {
+    public OrderRepository(EntityManager em) {
 	this.em = em;
     }
 
-    @Override
     public Order getOrderByNumber(String number) {
 	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
 	query.setParameter(Order.PARAM_NUMBER, number.toLowerCase());
@@ -25,7 +24,6 @@ public class OrderServiceImpl implements OrderService {
 	return query.getSingleResult();
     }
 
-    @Override
     public List<OrderInfo> getOrders(Customer customer, int year) {
 	Calendar cal = Calendar.getInstance();
 

@@ -9,8 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.entity.Order;
-import org.books.persistence.service.OrderService;
-import org.books.persistence.service.OrderServiceImpl;
+import org.books.persistence.service.OrderRepository;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Silvan
  */
-public class OrderServiceTest extends QueriesWithDataTest {
+public class OrderRepositoryTest extends QueriesWithDataTest {
 
-    OrderService service = new OrderServiceImpl(emf);
+    OrderRepository service = new OrderRepository(emf.createEntityManager());
 
     @Test
     public void queryOrderByCustomerAndYearUtil() {

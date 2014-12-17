@@ -9,8 +9,7 @@ import java.util.List;
 import org.books.persistence.dto.CustomerInfo;
 import org.books.persistence.entity.Customer;
 import org.books.persistence.entity.Login;
-import org.books.persistence.service.CustomerService;
-import org.books.persistence.service.CustomerServiceImpl;
+import org.books.persistence.service.CustomerRepository;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Silvan
  */
-public class CustomerServiceTest extends QueriesWithDataTest {
+public class CustomerRepositoryTest extends QueriesWithDataTest {
 
-    CustomerService service = new CustomerServiceImpl(emf);
+    CustomerRepository service = new CustomerRepository(emf.createEntityManager());
 
     @Test
     public void queryCustomerByEmail() {

@@ -15,15 +15,14 @@ import org.books.persistence.entity.Book;
 import org.books.persistence.entity.Book_;
 
 
-public class BookServiceImpl implements BookService {
+public class BookRepository {
 
     private final EntityManager em;
 
-    public BookServiceImpl(EntityManager em) {
+    public BookRepository(EntityManager em) {
 	this.em = em;
     }
 
-    @Override
     public Book getBookByISBN(String isbn) {
 	Validate.notEmpty(isbn, "'isbn' darf nicht leer sein");
 	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_BY_ISBN, Book.class);
@@ -32,7 +31,6 @@ public class BookServiceImpl implements BookService {
 	return query.getSingleResult();
     }
 
-    @Override
     public List<Book> searchBooks(String keywords) {
 	Validate.notEmpty(keywords, "'keywords' darf nicht leer sein");
 
