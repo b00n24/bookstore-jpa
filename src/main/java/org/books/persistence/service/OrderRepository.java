@@ -17,7 +17,11 @@ public class OrderRepository {
 	this.em = em;
     }
 
-    public Order getOrderByNumber(String number) {
+    public Order findById(Long id) {
+	return em.find(Order.class, id);
+    }
+
+    public Order findByNumber(String number) {
 	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
 	query.setParameter(Order.PARAM_NUMBER, number.toLowerCase());
 
@@ -51,6 +55,10 @@ public class OrderRepository {
 	query.setParameter(Order.PARAM_LAST_OF_YEAR, lastOfYear);
 
 	return query.getResultList();
+    }
+
+    public void update(Order order) {
+	em.merge(order);
     }
 
 }

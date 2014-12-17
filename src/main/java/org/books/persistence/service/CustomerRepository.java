@@ -50,7 +50,7 @@ public class CustomerRepository {
 	em.merge(customer);
     }
 
-    public Customer findCustomer(Long customerId) {
+    public Customer findById(Long customerId) {
 	return em.find(Customer.class, customerId);
     }
 

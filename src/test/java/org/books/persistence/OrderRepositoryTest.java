@@ -40,14 +40,14 @@ public class OrderRepositoryTest extends QueriesWithDataTest {
 
     @Test
     public void queryOrderByNumber() {
-	Order result = service.getOrderByNumber(orderNumber);
+	Order result = service.findByNumber(orderNumber);
 
 	assertEquals(orderNumber, result.getNumber());
     }
 
     @Test
     public void queryOrderByNumberCaseInsensitiv() {
-	Order result = service.getOrderByNumber(orderNumber.toUpperCase());
+	Order result = service.findByNumber(orderNumber.toUpperCase());
 	
 	assertEquals(orderNumber, result.getNumber());
     }

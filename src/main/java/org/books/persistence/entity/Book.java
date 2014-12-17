@@ -23,6 +23,7 @@ public class Book implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String isbn;
 
     private String title;

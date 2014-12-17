@@ -22,8 +22,12 @@ public class BookRepository {
     public BookRepository(EntityManager em) {
 	this.em = em;
     }
+    
+    public Book findById(Long id){
+	return em.find(Book.class, id);
+    }
 
-    public Book getBookByISBN(String isbn) {
+    public Book findByISBN(String isbn) {
 	Validate.notEmpty(isbn, "'isbn' darf nicht leer sein");
 	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_BY_ISBN, Book.class);
 	query.setParameter(Book.PARAM_ISBN, isbn.toLowerCase());

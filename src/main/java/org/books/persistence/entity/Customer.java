@@ -2,6 +2,7 @@ package org.books.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,6 +32,7 @@ public class Customer implements Serializable {
 
     private String lastName;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)

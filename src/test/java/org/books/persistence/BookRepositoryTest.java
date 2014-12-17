@@ -21,7 +21,7 @@ public class BookRepositoryTest extends QueriesWithDataTest {
 
     @Test
     public void queryBookByIsbn() {
-	Book result = service.getBookByISBN(isbn1);
+	Book result = service.findByISBN(isbn1);
 
 	assertEquals(isbn1, result.getIsbn());
     }
