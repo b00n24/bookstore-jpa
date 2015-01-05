@@ -6,5 +6,5 @@ package org.books.persistence.enums;
  */
 public enum Status {
 
-    ACCEPTED, PROCESSING, DELIVERED, CANCELED;
+    accepted, processing, shipped, canceled;
 }

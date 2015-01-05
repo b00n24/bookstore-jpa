@@ -140,7 +140,7 @@ public abstract class QueriesWithDataTest extends AbstractTest {
 	order.setNumber(orderNumber);
 	order.setDate(orderDate);
 	order.setAmount(new BigDecimal(55));
-	order.setStatus(Status.ACCEPTED);
+	order.setStatus(Status.accepted);
 	order.getItems().add(lineItem1);
 	order.setCustomer(customer);
 	em.persist(order);

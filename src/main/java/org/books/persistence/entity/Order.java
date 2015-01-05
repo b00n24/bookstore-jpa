@@ -173,4 +173,5 @@ public class Order implements Serializable {
     public String toString() {
 	return "Order{" + "id=" + id + ", number=" + number + ", date=" + date + ", amount=" + amount + ", status=" + status + ", customer=" + customer + ", address=" + address + ", creditCard=" + creditCard + ", items=" + items + '}';
     }
+
 }
