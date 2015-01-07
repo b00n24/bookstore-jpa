@@ -18,6 +18,7 @@ public class CustomerRepository {
     }
 
     public List<CustomerInfo> searchCustomersByName(String name) {
+	Validate.notNull(name, "'name' darf nicht null sein");
 	Validate.notEmpty(name, "'name' darf nicht leer sein");
 
 	TypedQuery<CustomerInfo> query = em.createNamedQuery(Customer.QUERY_BY_NAME, CustomerInfo.class);
@@ -27,6 +28,7 @@ public class CustomerRepository {
     }
 
     public Customer findByMail(String email) {
+	Validate.notNull(email, "'email' darf nicht null sein");
 	Validate.notEmpty(email, "'email' darf nicht leer sein");
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
 	query.setParameter(Customer.PARAM_EMAIL, email.toLowerCase());
@@ -35,6 +37,7 @@ public class CustomerRepository {
     }
 
     public Login findLoginByUserName(String userName) {
+	Validate.notNull(userName, "'userName' darf nicht null sein");
 	Validate.notEmpty(userName, "'userName' darf nicht leer sein");
 	TypedQuery<Login> query = em.createNamedQuery(Login.QUERY_BY_NAME, Login.class);
 	query.setParameter(Login.PARAM_NAME, userName.toLowerCase());

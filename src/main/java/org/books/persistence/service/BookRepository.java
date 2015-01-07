@@ -28,6 +28,7 @@ public class BookRepository {
     }
 
     public Book findByISBN(String isbn) {
+	Validate.notNull(isbn, "'isbn' darf nicht null sein");
 	Validate.notEmpty(isbn, "'isbn' darf nicht leer sein");
 	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_BY_ISBN, Book.class);
 	query.setParameter(Book.PARAM_ISBN, isbn.toLowerCase());
@@ -36,6 +37,7 @@ public class BookRepository {
     }
 
     public List<Book> searchBooks(String keywords) {
+	Validate.notNull(keywords, "'keywords' darf nicht null sein");
 	Validate.notEmpty(keywords, "'keywords' darf nicht leer sein");
 
 	CriteriaBuilder cb = em.getCriteriaBuilder();
