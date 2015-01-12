@@ -2,6 +2,7 @@ package org.books.persistence.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.Validate;
 import org.books.persistence.QueryUtil;
@@ -32,8 +33,13 @@ public class CustomerRepository {
 	Validate.notEmpty(email, "'email' darf nicht leer sein");
 	TypedQuery<Customer> query = em.createNamedQuery(Customer.QUERY_BY_EMAIL, Customer.class);
 	query.setParameter(Customer.PARAM_EMAIL, email.toLowerCase());
-
-	return query.getSingleResult();
+	Customer result = null;
+	try {
+	    result = query.getSingleResult();
+	} catch (NoResultException ex) {
+	    // Ignore no Result Exception
+	}
+	return result;
     }
 
     public Login findLoginByUserName(String userName) {
@@ -42,7 +48,13 @@ public class CustomerRepository {
 	TypedQuery<Login> query = em.createNamedQuery(Login.QUERY_BY_NAME, Login.class);
 	query.setParameter(Login.PARAM_NAME, userName.toLowerCase());
 
-	return query.getSingleResult();
+	Login result = null;
+	try {
+	    result = query.getSingleResult();
+	} catch (NoResultException ex) {
+	    // Ignore no Result Exception
+	}
+	return result;
     }
 
     public void update(Login login) {

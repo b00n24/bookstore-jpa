@@ -2,6 +2,7 @@ package org.books.persistence.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -33,7 +34,13 @@ public class BookRepository {
 	TypedQuery<Book> query = em.createNamedQuery(Book.QUERY_BY_ISBN, Book.class);
 	query.setParameter(Book.PARAM_ISBN, isbn.toLowerCase());
 
-	return query.getSingleResult();
+	Book result = null;
+	try {
+	    result = query.getSingleResult();
+	} catch (NoResultException ex) {
+	    // Ignore no Result Exception
+	}
+	return result;
     }
 
     public List<Book> searchBooks(String keywords) {

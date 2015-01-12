@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import org.books.persistence.dto.OrderInfo;
 import org.books.persistence.entity.Customer;
@@ -25,7 +26,13 @@ public class OrderRepository {
 	TypedQuery<Order> query = em.createNamedQuery(Order.QUERY_BY_NUMBER, Order.class);
 	query.setParameter(Order.PARAM_NUMBER, number.toLowerCase());
 
-	return query.getSingleResult();
+	Order result = null;
+	try {
+	    result = query.getSingleResult();
+	} catch (NoResultException ex) {
+	    // Ignore no Result Exception
+	}
+	return result;
     }
 
     public List<OrderInfo> getOrders(Customer customer, int year) {
