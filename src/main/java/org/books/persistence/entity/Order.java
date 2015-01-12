@@ -66,7 +66,7 @@ public class Order implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
     private CreditCard creditCard;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REFRESH)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = {CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "bookorder_id")
     private List<LineItem> items;
 

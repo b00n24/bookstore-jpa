@@ -1,5 +1,6 @@
 package org.books.persistence.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import org.books.persistence.enums.Status;
@@ -8,7 +9,7 @@ import org.books.persistence.enums.Status;
  *
  * @author AWy
  */
-public class OrderInfo {
+public class OrderInfo implements Serializable {
 
     private Long id;
     private String number;

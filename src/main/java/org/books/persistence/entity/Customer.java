@@ -106,7 +106,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
 	return "Customer{" + "firstName=" + firstName + ", lastName=" + lastName
-		+ ", password=" + email
+		+ ", email=" + email
 		+ ", address=" + address + ", creditCard=" + creditCard + '}';
     }
 }
